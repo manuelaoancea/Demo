@@ -3,9 +3,13 @@ export default class Options {
         
         
         //addProduct
-        this.addToCart = true
-        this.quickView = true
-        this.more = true
+        this.addToCart = "addToCart"
+        this.quickView = "quickView"
+        this.more = "more"
+
+        //paymentMethod
+        this.bankWire = "bankWire"
+        this.check = "check"
 
     }
 }

@@ -25,7 +25,11 @@ export default class Elements {
         //not sure if i should use nth or the above
         this.more = Selector('.hovered [title="View"]')
 
+        //quickView popup
+        this.productNameQuickView = Selector('#product [itemprop="name"]')
+        //box-info
         this.infoPAddToCart = Selector('#add_to_cart [name="Submit"] span')
+       
         
         //cart
         this.productNameCart = Selector('.layer_cart_product_info .product-name')

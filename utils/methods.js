@@ -31,8 +31,7 @@ export default class Methods {
             case options.addToCart:
                 await t
                     .hover(elements.product1)
-                    .click(elements.addToCart,{ timeout: testdata.longWait })
-                    .wait(testdata.longWait);
+                    .click(elements.addToCart,{ timeout: testdata.longWait });
                 break;
             case options.quickView:
                 await t
@@ -51,4 +50,34 @@ export default class Methods {
         }
 
     }
+
+    async placeOrder(email, password) {
+        await t.click(elements.infoPAddToCart);
+        await t.click(elements.proceedToCheckout);
+        await t.click(elements.proceedToCheckoutSummary);
+        await this.login(testdata.email, testdata.password);
+        await t.click(elements.submit.withText(testdata.proceedToCheckout));
+        await t.click(elements.checkbox);
+        await t.click(elements.submit.withText(testdata.proceedToCheckout));
+        await t.click(elements.bankWire);
+        await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
+        await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
+    }   
+
+    async paymentMethod(varii) {
+        switch (vari) {
+            case options.bankWire:
+                await t.click(elements.bankWire);
+                await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
+                break;
+            case options.check:
+                await t.click(elements.check);
+                await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
+                break;
+            default:
+                console.log(messages.paymentMethod);
+                break;
+    } 
+}
+
 }

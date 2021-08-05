@@ -5,6 +5,7 @@ export default class Testdata {
         
         //wait times
       	this.shortWait = 3000
+        this.avgWait = 1000
       	this.longWait = 30000
         this.veryLongWait = 60000
         this.veryShortWait = 100
