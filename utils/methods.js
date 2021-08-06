@@ -1,10 +1,12 @@
 import Testdata from "./testdata";
 import Options from "./options";
 import Elements from "./elements";
+import Locators from "./locators";
 import Messages from "./messages";
 import {Selector, t} from 'testcafe';
 
 const elements = new Elements();
+const locators = new Locators();
 const testdata = new Testdata();
 const options = new Options();
 const messages = new Messages();
@@ -37,7 +39,7 @@ export default class Methods {
                 await t
                     .hover(elements.product1)
                     .click(elements.quickView,{ timeout: testdata.longWait })
-                    .switchToIframe(elements.iframe);
+                    .switchToIframe(locators.iframe);
                 break;
             case options.more:
                 await t

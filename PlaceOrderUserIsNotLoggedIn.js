@@ -1,4 +1,5 @@
 import Elements from "./utils/elements";
+import Locators from "./utils/locators";
 import Messages from "./utils/messages";
 import Methods from "./utils/methods";
 import Testdata from "./utils/testdata";
@@ -7,6 +8,7 @@ import { t, Selector,ClientFunction } from 'testcafe';
 
 
 const elements = new Elements();
+const locators = new Locators();
 const messages = new Messages();
 const methods = new Methods();
 const testdata = new Testdata();
@@ -46,7 +48,7 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
               regression: 'true', 
 });
 
-test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
+test.only('TC2: Product list > hover over product > Quick View > bankwire', async t => {
 	await t.hover(elements.product1,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.quickView,{ timeout: testdata.longWait });
