@@ -48,7 +48,7 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
               regression: 'true', 
 });
 
-test.only('TC2: Product list > hover over product > Quick View > bankwire', async t => {
+test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
 	await t.hover(elements.product1,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.quickView,{ timeout: testdata.longWait });
