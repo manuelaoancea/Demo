@@ -36,7 +36,8 @@ export default class Methods {
             case options.quickView:
                 await t
                     .hover(elements.product1)
-                    .click(elements.quickView,{ timeout: testdata.longWait });
+                    .click(elements.quickView,{ timeout: testdata.longWait })
+                    .switchToIframe(elements.iframe);
                 break;
             case options.more:
                 await t
@@ -52,20 +53,23 @@ export default class Methods {
     }
 
     async placeOrder(email, password) {
-        await t.click(elements.infoPAddToCart);
+
+        if (await this.checkExists(elements.infoPAddToCart)) {
+                await t.click(elements.infoPAddToCart);
+                await t.switchToMainWindow();
+        }
         await t.click(elements.proceedToCheckout);
         await t.click(elements.proceedToCheckoutSummary);
-        await this.login(testdata.email, testdata.password);
+        if (await this.checkExists(elements.email)) {
+            await this.login(testdata.email, testdata.password);  
+        }
         await t.click(elements.submit.withText(testdata.proceedToCheckout));
         await t.click(elements.checkbox);
         await t.click(elements.submit.withText(testdata.proceedToCheckout));
-        await t.click(elements.bankWire);
-        await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
-        await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
     }   
 
     async paymentMethod(varii) {
-        switch (vari) {
+        switch (varii) {
             case options.bankWire:
                 await t.click(elements.bankWire);
                 await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
@@ -77,7 +81,6 @@ export default class Methods {
             default:
                 console.log(messages.paymentMethod);
                 break;
-    } 
-}
-
+        } 
+    }
 }

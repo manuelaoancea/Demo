@@ -6,7 +6,7 @@ const testdata = new Testdata();
 
 export default class Elements {
     constructor () {
-        //Side-wide
+        //Side-wie
         //header
         this.signInHeader = Selector('.login')
         //menu
@@ -15,6 +15,7 @@ export default class Elements {
         this.cart = Selector('.shopping_cart [href*=order] b')
         this.cartCheckOut = Selector('[title="Check out"] span')
 
+        
         //product list
         this.productItem = Selector('.first-item-of-mobile-line')
         this.product1 =  this.productItem.nth(0)
@@ -25,8 +26,10 @@ export default class Elements {
         //not sure if i should use nth or the above
         this.more = Selector('.hovered [title="View"]')
 
-        //quickView popup
-        this.productNameQuickView = Selector('#product [itemprop="name"]')
+        this.iframe = '.fancybox-iframe'
+
+        //quickView popup //more page
+        this.productNameOrder = Selector('#product [itemprop="name"]')
         //box-info
         this.infoPAddToCart = Selector('#add_to_cart [name="Submit"] span')
        
@@ -45,18 +48,22 @@ export default class Elements {
         this.productNameSummary = Selector('.cart_description .product-name a')
         this.continueShoppingSummary = Selector('.cart_navigation [title="Continue shopping"]')
 
+        
         //02. Sign in
         this.email = Selector('[id="email"]')
         this.password = Selector('[id="passwd"]')
         this.signIn = Selector('[id="SubmitLogin"]')
 
+        
         //03. Address
         this.submit = Selector('[type="submit"] span')
 
+        
         //04.Shipping
         this.checkbox = Selector('[type="checkbox"]')
         this.alertFail = Selector('.fancybox-error')
 
+        
         //05.Payment
         this.bankWire = Selector('.bankwire')
         this.check = Selector('.cheque')

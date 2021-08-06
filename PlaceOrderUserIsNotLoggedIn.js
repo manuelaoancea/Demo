@@ -1,8 +1,8 @@
-import Elements from "././utils/elements";
-import Messages from "././utils/messages";
-import Methods from "././utils/methods";
-import Testdata from "././utils/testdata";
-import Options from "././utils/options";
+import Elements from "./utils/elements";
+import Messages from "./utils/messages";
+import Methods from "./utils/methods";
+import Testdata from "./utils/testdata";
+import Options from "./utils/options";
 import { t, Selector,ClientFunction } from 'testcafe';
 
 
@@ -14,7 +14,7 @@ const options = new Options();
 
 
 
-fixture `PlaceOrder-User is not logged in`
+fixture `Place Order: User is not logged in`
 
 	.beforeEach( async t => {
 		await t.maximizeWindow();
@@ -46,14 +46,11 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
               regression: 'true', 
 });
 
-//i have added expect for product name only for the screens that do not appear in TC1
-//2 issues at the moment - I am unable to identify elements.productNameQuickView & elements.infoPAddToCart - tried with debug as well. dunno what's wrong
 test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
 	await t.hover(elements.product1,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.quickView,{ timeout: testdata.longWait });
-	await t.debug();
-	await t.expect(elements.productNameQuickView.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
+	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
 	await methods.placeOrder(testdata.email, testdata.password);
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
@@ -63,10 +60,12 @@ test('TC2: Product list > hover over product > Quick View > bankwire', async t =
               regression: 'true', 
 });
 
-
 test('TC3: Product list > hover over product > More > bankwire', async t => {
-	await methods.addProduct(options.more);
-	await methods.placeOrder();
+	await t.hover(elements.product1,{ timeout: testdata.longWait });
+	const productNameToBeAdded = await elements.productName.innerText;
+	await methods.addProduct(options.more,{ timeout: testdata.longWait });
+	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
+	await methods.placeOrder(testdata.email, testdata.password);
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 })
@@ -76,13 +75,9 @@ test('TC3: Product list > hover over product > More > bankwire', async t => {
 });
 
 test('TC4: Product list > hover over product > add to cart > check', async t => {
-	//TC1 row 25 - 45 different check - could i make a function with 2 parameters?
-	//row 45 differnet - check
-	//row 47 (expect) different
 	await methods.addProduct(options.addToCart);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
-	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);
 })
 	.meta( { 
@@ -90,11 +85,10 @@ test('TC4: Product list > hover over product > add to cart > check', async t => 
               regression: 'true', 
 });
 
-test('TC5: Product list > hover over product > Quick View > bankwire', async t => {
+test('TC5: Product list > hover over product > Quick View > check', async t => {
 	await methods.addProduct(options.quickView);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
-	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);
 })
 	.meta( { 
@@ -103,11 +97,10 @@ test('TC5: Product list > hover over product > Quick View > bankwire', async t =
 });
 
 
-test('TC6: Product list > hover over product > More > bankwire', async t => {
+test('TC6: Product list > hover over product > More > check', async t => {
 	await methods.addProduct(options.more);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
-	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);
 })
 	.meta( { 
