@@ -14,7 +14,7 @@ const methods = new Methods();
 const testdata = new Testdata();
 const options = new Options();
 
-
+const product = elements.productItem.nth(0);
 
 fixture `Place Order: User is not logged in`
 
@@ -25,7 +25,7 @@ fixture `Place Order: User is not logged in`
 
 
 test('TC1: Product list > hover over product > add to cart > bankwire', async t => {
-	await t.hover(elements.product1,{ timeout: testdata.longWait });
+	await t.hover(product,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.addToCart);
 	await t.expect(elements.iconOk.exists).ok(messages.iconOk,{ timeout: testdata.longWait });
@@ -34,7 +34,7 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
 	await t.click(elements.proceedToCheckout);
 	await t.expect(elements.productNameSummary.innerText).eql(productNameToBeAdded);
 	await t.click(elements.proceedToCheckoutSummary);
-	await methods.login(testdata.email, testdata.password);
+	await methods.login();
 	await t.click(elements.submit.withText(testdata.proceedToCheckout));
 	await t.click(elements.checkbox);
 	await t.click(elements.submit.withText(testdata.proceedToCheckout));
@@ -49,11 +49,11 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
 });
 
 test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
-	await t.hover(elements.product1,{ timeout: testdata.longWait });
+	await t.hover(product,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.quickView,{ timeout: testdata.longWait });
 	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
-	await methods.placeOrder(testdata.email, testdata.password);
+	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 })
@@ -63,11 +63,11 @@ test('TC2: Product list > hover over product > Quick View > bankwire', async t =
 });
 
 test('TC3: Product list > hover over product > More > bankwire', async t => {
-	await t.hover(elements.product1,{ timeout: testdata.longWait });
+	await t.hover(product,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
 	await methods.addProduct(options.more,{ timeout: testdata.longWait });
 	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
-	await methods.placeOrder(testdata.email, testdata.password);
+	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
 })

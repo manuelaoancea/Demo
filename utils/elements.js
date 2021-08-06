@@ -18,19 +18,13 @@ export default class Elements {
         
         //product list
         this.productItem = Selector('.first-item-of-mobile-line')
-        this.product1 =  this.productItem.nth(0)
         this.productName = Selector('.hovered .product-name')
         this.quickView = Selector('.hovered .quick-view')
         this.addToCart = Selector('.hovered [title="'+testdata.addToCart+'"]')
-        //.first-item-of-mobile-line.hovered .quick-view[href*="id_product=1"]
-        //not sure if i should use nth or the above
         this.more = Selector('.hovered [title="View"]')
 
         this.iframe = '.fancybox-iframe'
-
-        //quickView popup //more page
         this.productNameOrder = Selector('#product [itemprop="name"]')
-        //box-info
         this.infoPAddToCart = Selector('#add_to_cart [name="Submit"] span')
        
         

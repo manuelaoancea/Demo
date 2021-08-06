@@ -12,7 +12,7 @@ const options = new Options();
 const messages = new Messages();
 
 export default class Methods {
-    async login(email, password) {
+    async login(email = testdata.email, password = testdata.password) {
         await t.click(elements.email);
         await t.typeText(elements.email, email);
         await t.typeText(elements.password, password); 
@@ -28,22 +28,23 @@ export default class Methods {
         return response;
     }
 
-    async addProduct(vari){
-        switch (vari) {
+    async addProduct(option, index = 1){
+        const product = elements.productItem.nth(index-1);
+        switch (option) {
             case options.addToCart:
                 await t
-                    .hover(elements.product1)
+                    .hover(elements.product)
                     .click(elements.addToCart,{ timeout: testdata.longWait });
                 break;
             case options.quickView:
                 await t
-                    .hover(elements.product1)
+                    .hover(elements.product)
                     .click(elements.quickView,{ timeout: testdata.longWait })
                     .switchToIframe(locators.iframe);
                 break;
             case options.more:
                 await t
-                    .hover(elements.product1)
+                    .hover(elements.product)
                     .click(elements.more,{ timeout: testdata.longWait });
                 break;
             default:
@@ -54,7 +55,7 @@ export default class Methods {
 
     }
 
-    async placeOrder(email, password) {
+    async placeOrder(email = testdata.email, password = testdata.password) {
 
         if (await this.checkExists(elements.infoPAddToCart)) {
                 await t.click(elements.infoPAddToCart);
@@ -63,26 +64,26 @@ export default class Methods {
         await t.click(elements.proceedToCheckout);
         await t.click(elements.proceedToCheckoutSummary);
         if (await this.checkExists(elements.email)) {
-            await this.login(testdata.email, testdata.password);  
+            await this.login(email, password);  
         }
         await t.click(elements.submit.withText(testdata.proceedToCheckout));
         await t.click(elements.checkbox);
         await t.click(elements.submit.withText(testdata.proceedToCheckout));
     }   
 
-    async paymentMethod(varii) {
-        switch (varii) {
+    async paymentMethod(option) {
+        switch (option) {
             case options.bankWire:
                 await t.click(elements.bankWire);
-                await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
                 break;
             case options.check:
                 await t.click(elements.check);
-                await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
+
                 break;
             default:
                 console.log(messages.paymentMethod);
                 break;
         } 
+        await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
     }
 }
