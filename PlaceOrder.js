@@ -51,7 +51,7 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
 test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
 	await t.hover(product,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
-	await methods.addProduct(options.quickView,{ timeout: testdata.longWait });
+	await methods.addProduct(options.quickView);
 	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
 	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);
@@ -65,7 +65,7 @@ test('TC2: Product list > hover over product > Quick View > bankwire', async t =
 test('TC3: Product list > hover over product > More > bankwire', async t => {
 	await t.hover(product,{ timeout: testdata.longWait });
 	const productNameToBeAdded = await elements.productName.innerText;
-	await methods.addProduct(options.more,{ timeout: testdata.longWait });
+	await methods.addProduct(options.more);
 	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
 	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);

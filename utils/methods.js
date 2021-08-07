@@ -33,18 +33,18 @@ export default class Methods {
         switch (option) {
             case options.addToCart:
                 await t
-                    .hover(elements.product)
+                    .hover(product)
                     .click(elements.addToCart,{ timeout: testdata.longWait });
                 break;
             case options.quickView:
                 await t
-                    .hover(elements.product)
+                    .hover(product)
                     .click(elements.quickView,{ timeout: testdata.longWait })
                     .switchToIframe(locators.iframe);
                 break;
             case options.more:
                 await t
-                    .hover(elements.product)
+                    .hover(product)
                     .click(elements.more,{ timeout: testdata.longWait });
                 break;
             default:

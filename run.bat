@@ -1,1 +1,1 @@
-testcafe "chrome:headless" *.js -r spec:04.20.21.ProductionAllTests.txt -s takeOnFails=true
+testcafe chrome: *.js --test-meta desktop=true regression=true -r spec:PlaceOrderRegression.txt -s takeOnFails=true
