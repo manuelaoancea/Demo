@@ -5,11 +5,13 @@ import Locators from "./locators";
 import Messages from "./messages";
 import {Selector, t} from 'testcafe';
 
+
 const elements = new Elements();
 const locators = new Locators();
-const testdata = new Testdata();
+const testdata= new Testdata();
 const options = new Options();
 const messages = new Messages();
+
 
 export default class Methods {
     async login(email = testdata.email, password = testdata.password) {
@@ -34,18 +36,18 @@ export default class Methods {
             case options.addToCart:
                 await t
                     .hover(product)
-                    .click(elements.addToCart,{ timeout: testdata.longWait });
+                    .click(elements.addToCart);
                 break;
             case options.quickView:
                 await t
                     .hover(product)
-                    .click(elements.quickView,{ timeout: testdata.longWait })
+                    .click(elements.quickView)
                     .switchToIframe(locators.iframe);
                 break;
             case options.more:
                 await t
                     .hover(product)
-                    .click(elements.more,{ timeout: testdata.longWait });
+                    .click(elements.more);
                 break;
             default:
                 console.log(messages.addProduct);
@@ -54,36 +56,5 @@ export default class Methods {
         }
 
     }
-
-    async placeOrder(email = testdata.email, password = testdata.password) {
-
-        if (await this.checkExists(elements.infoPAddToCart)) {
-                await t.click(elements.infoPAddToCart);
-                await t.switchToMainWindow();
-        }
-        await t.click(elements.proceedToCheckout);
-        await t.click(elements.proceedToCheckoutSummary);
-        if (await this.checkExists(elements.email)) {
-            await this.login(email, password);  
-        }
-        await t.click(elements.submit.withText(testdata.proceedToCheckout));
-        await t.click(elements.checkbox);
-        await t.click(elements.submit.withText(testdata.proceedToCheckout));
-    }   
-
-    async paymentMethod(option) {
-        switch (option) {
-            case options.bankWire:
-                await t.click(elements.bankWire);
-                break;
-            case options.check:
-                await t.click(elements.check);
-
-                break;
-            default:
-                console.log(messages.paymentMethod);
-                break;
-        } 
-        await t.click(elements.submit.withText(testdata.iConfirmMyOrder));
-    }
+    
 }

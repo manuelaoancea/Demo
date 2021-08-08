@@ -23,7 +23,6 @@ export default class Elements {
         this.addToCart = Selector('.hovered [title="'+testdata.addToCart+'"]')
         this.more = Selector('.hovered [title="View"]')
 
-        this.iframe = '.fancybox-iframe'
         this.productNameOrder = Selector('#product [itemprop="name"]')
         this.infoPAddToCart = Selector('#add_to_cart [name="Submit"] span')
        
@@ -35,35 +34,10 @@ export default class Elements {
         this.proceedToCheckout = Selector('[title="Proceed to checkout"]')
         this.close = Selector('[title="Close window"]')
 
-
-        //SHOPPING-CART SUMMARY
-        //01. Summary
-        this.proceedToCheckoutSummary = Selector('.standard-checkout[title="Proceed to checkout"]')
-        this.productNameSummary = Selector('.cart_description .product-name a')
-        this.continueShoppingSummary = Selector('.cart_navigation [title="Continue shopping"]')
-
-        
         //02. Sign in
         this.email = Selector('[id="email"]')
         this.password = Selector('[id="passwd"]')
         this.signIn = Selector('[id="SubmitLogin"]')
-
-        
-        //03. Address
-        this.submit = Selector('[type="submit"] span')
-
-        
-        //04.Shipping
-        this.checkbox = Selector('[type="checkbox"]')
-        this.alertFail = Selector('.fancybox-error')
-
-        
-        //05.Payment
-        this.bankWire = Selector('.bankwire')
-        this.check = Selector('.cheque')
-        this.orderComplete = Selector('.cheque-indent .dark')
-        this.alertSuccess = Selector('.alert-success')
-
         
     }
 }

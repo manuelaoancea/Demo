@@ -1,20 +1,25 @@
-import Elements from "./utils/elements";
-import Locators from "./utils/locators";
+import CommonElements from "./utils/elements";
+import Elements from "./utils/checkout/elements";
 import Messages from "./utils/messages";
-import Methods from "./utils/methods";
+import CommonMethods from "./utils/methods";
+import Methods from "./utils/checkout/methods";
 import Testdata from "./utils/testdata";
-import Options from "./utils/options";
+import CommonOptions from "./utils/options";
+import Options from "./utils/checkout/options";
 import { t, Selector,ClientFunction } from 'testcafe';
 
 
+const commonElements = new CommonElements();
 const elements = new Elements();
-const locators = new Locators();
 const messages = new Messages();
+const commonMethods = new CommonMethods();
 const methods = new Methods();
-const testdata = new Testdata();
+const testdata= new Testdata();
+const commonOptions = new CommonOptions();
 const options = new Options();
 
-const product = elements.productItem.nth(0);
+
+const product = commonElements.productItem.nth(0);
 
 fixture `Place Order: User is not logged in`
 
@@ -23,18 +28,17 @@ fixture `Place Order: User is not logged in`
 		await t.navigateTo(testdata.url);
    	});
 
-
 test('TC1: Product list > hover over product > add to cart > bankwire', async t => {
 	await t.hover(product,{ timeout: testdata.longWait });
-	const productNameToBeAdded = await elements.productName.innerText;
-	await methods.addProduct(options.addToCart);
-	await t.expect(elements.iconOk.exists).ok(messages.iconOk,{ timeout: testdata.longWait });
-	await t.expect(elements.okText.innerText).eql(testdata.productAddedSuccessfully,messages.productAddedSuccessfully);
-	await t.expect(elements.productNameCart.innerText).eql(productNameToBeAdded);
-	await t.click(elements.proceedToCheckout);
+	const productNameToBeAdded = await commonElements.productName.innerText;
+	await commonMethods.addProduct(commonOptions.addToCart);
+	await t.expect(commonElements.iconOk.exists).ok(messages.iconOk,{ timeout: testdata.longWait });
+	await t.expect(commonElements.okText.innerText).eql(testdata.productAddedSuccessfully,messages.productAddedSuccessfully);
+	await t.expect(commonElements.productNameCart.innerText).eql(productNameToBeAdded);
+	await t.click(commonElements.proceedToCheckout);
 	await t.expect(elements.productNameSummary.innerText).eql(productNameToBeAdded);
 	await t.click(elements.proceedToCheckoutSummary);
-	await methods.login();
+	await commonMethods.login();
 	await t.click(elements.submit.withText(testdata.proceedToCheckout));
 	await t.click(elements.checkbox);
 	await t.click(elements.submit.withText(testdata.proceedToCheckout));
@@ -50,9 +54,9 @@ test('TC1: Product list > hover over product > add to cart > bankwire', async t 
 
 test('TC2: Product list > hover over product > Quick View > bankwire', async t => {
 	await t.hover(product,{ timeout: testdata.longWait });
-	const productNameToBeAdded = await elements.productName.innerText;
-	await methods.addProduct(options.quickView);
-	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
+	const productNameToBeAdded = await commonElements.productName.innerText;
+	await commonMethods.addProduct(commonOptions.quickView);
+	await t.expect(commonElements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
 	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
@@ -64,9 +68,9 @@ test('TC2: Product list > hover over product > Quick View > bankwire', async t =
 
 test('TC3: Product list > hover over product > More > bankwire', async t => {
 	await t.hover(product,{ timeout: testdata.longWait });
-	const productNameToBeAdded = await elements.productName.innerText;
-	await methods.addProduct(options.more);
-	await t.expect(elements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
+	const productNameToBeAdded = await commonElements.productName.innerText;
+	await commonMethods.addProduct(commonOptions.more);
+	await t.expect(commonElements.productNameOrder.innerText).eql(productNameToBeAdded,{ timeout: testdata.longWait });
 	await methods.placeOrder();
 	await methods.paymentMethod(options.bankWire);
 	await t.expect(elements.orderComplete.innerText).eql(testdata.orderComplete);
@@ -77,7 +81,7 @@ test('TC3: Product list > hover over product > More > bankwire', async t => {
 });
 
 test('TC4: Product list > hover over product > add to cart > check', async t => {
-	await methods.addProduct(options.addToCart);
+	await commonMethods.addProduct(commonOptions.addToCart);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);
@@ -88,7 +92,7 @@ test('TC4: Product list > hover over product > add to cart > check', async t => 
 });
 
 test('TC5: Product list > hover over product > Quick View > check', async t => {
-	await methods.addProduct(options.quickView);
+	await commonMethods.addProduct(commonOptions.quickView);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);
@@ -98,9 +102,8 @@ test('TC5: Product list > hover over product > Quick View > check', async t => {
               regression: 'true', 
 });
 
-
 test('TC6: Product list > hover over product > More > check', async t => {
-	await methods.addProduct(options.more);
+	await commonMethods.addProduct(commonOptions.more);
 	await methods.placeOrder();
 	await methods.paymentMethod(options.check);
 	await t.expect(elements.alertSuccess.innerText).eql(testdata.orderComplete);

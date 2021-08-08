@@ -7,9 +7,6 @@ export default class Options {
         this.quickView = "quickView"
         this.more = "more"
 
-        //paymentMethod
-        this.bankWire = "bankWire"
-        this.check = "check"
 
     }
 }
