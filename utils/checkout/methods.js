@@ -24,7 +24,7 @@ export default class Methods {
         }
         await t.click(commonElements.proceedToCheckout);
         await t.click(elements.proceedToCheckoutSummary);
-        if (await commonMethods.checkExists(elements.email)) {
+        if (await commonMethods.checkExists(commonElements.email)) {
             await commonMethods.login(email, password);  
         }
         await t.click(elements.submit.withText(testdata.proceedToCheckout));
